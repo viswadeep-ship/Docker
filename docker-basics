@@ -8,6 +8,17 @@ docker pull <image-name> -> pulls the image from docker repository/hub.
 docker pull nginx -> it pulls latest verison from docker hub
 docker images -> here u can see docker image 
 docker pull nginx:mainline-alpine3.23-perl   -> mainline-alpine3.23-perl this is tag if you want particular version copy the tag in docker hub.
+docker pull nginx:alpine-slim -> it creates a alpine-slim image.
+Now i want to run container so will create container from image  -> docker create <image name>:version -> docker create nginx:alpine-slim.
+docker ps -> here it is not showing container so -> docker ps -a -> here container is not running -> docker start <container ID>  -> it starts the container.
+docker stop <container ID>, docker rm <container ID>  -> remove container
+docker rm -f <container ID> -> it deletes running container
+docker images -> if you want to delete docker images -> docker rmi <image ID>
+docker run= docker pull + create + start => docker run nginx -> it is running foreground, it occupies the screen so will run background => docker run -d nginx
+
+
+
+
 
 
 
