@@ -1,0 +1,15 @@
+Docker is a containeration platform that provides easy way to containerize your application which means using docker 
+
+whatever we want to run a application all the dependencies, code, package and all supplies in docker image.
+container is the running instance of image.
+docker ps ->checks the running containers
+docker images ->displays the images available in server.
+docker pull <image-name> -> pulls the image from docker repository/hub.
+docker pull nginx -> it pulls latest verison from docker hub
+docker images -> here u can see docker image 
+docker pull nginx:mainline-alpine3.23-perl   -> mainline-alpine3.23-perl this is tag if you want particular version copy the tag in docker hub.
+
+
+
+  
+  
