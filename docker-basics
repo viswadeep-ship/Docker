@@ -50,6 +50,129 @@ almalinux is equivalent to RHEL
 How to build docker image?
  docker build -t imagename:version . => represents current build have dockerfile file  -t for tagging
 docker build -t from:v1
+open github -> create 1 repository called dockerfiles
+open VS code and click on dockerfiles and create folder called FROM, under FROM create a file called dockerfiles. Content write:From almalinux:9 and save
+Go to GITBASH-> clone dockerfiles from git hub to git bash -> git add . -> git commit -m "docker" -> git push main origin
+Now content updated in git hub and clone dockerfiles repository to putty
+cd dockerfiles/FROM
+here you can see dockerfiles file now run the build command => docker build -t from:v1 .  => u can see this image in docker images.
+
+RUN
+----------------------------------------------------------------------------------------------
+Run instruction is used to configure image like installing packages, configure etc. RUN instruction runs at the time of image building.
+create a folder name as RUN in VS code under RUN create file Dockerfile. write a content 
+FROM almalinux:9
+RUN dnf install nginx -y
+now open git bash and run git add . , git commit -m "docker", git push main origin
+now the changes reflected in git hub and run git pull in putty it updates the changes.
+cd dockerfiles/RUN
+run docker build -t run:v1   -> it creates image and installs nginx.
+
+CMD
+------------------------------------------------------------------------------------------------
+CMD instrction runs at the time of container creation. It keeps container running.
+nginx -g daemon off  => runs nginx in foreground
+create a folder name as CMD in VS code, under CMD create file Dockerfile. write a content as below
+FROM almalinux:9
+RUN dnf install nginx -y
+CMD ["nginx", "-g" "daemon off";]
+go to git bash ==> git add . , git commit -m "docker", git push main origin
+now the changes reflected in git hub and run git pull in putty it updates the changes.
+cd dockerfiles/CMD
+docker build -t cmd:v1 .
+docker run -d cmd:v1 
+docker rm -f container ID -> delete all containers and run below command
+docker run -d -p 80:80 cmd:v1  => now open in browser http://IP
+o/p:-  Alma linux testpage
+
+docker build = image creation => RUN
+docker run = container creation => CMD
+
+Now created a image and will push to docker hub.
+
+deepika@nginx:~/dockerfiles/CMD$ docker images
+                                                                                                                                                                         i Info →   U  In Use
+IMAGE                ID             DISK USAGE   CONTENT SIZE   EXTRA
+cmd:v1               6a1132253c35        364MB          104MB    U
+from:v1              d51b61b536b0        278MB         70.4MB
+hello-world:latest   d4aaab6242e0       25.9kB         9.52kB
+nginx:alpine-perl    39c73ba97774        139MB         35.2MB
+nginx:latest         fb01117203ff        228MB         62.6MB
+run:v1               7756e708ac42        364MB          104MB
+
+Here we need to change cmd:v1 to joindevops/nginx:v1 run below command to change
+deepika@nginx:~/dockerfiles/CMD$ docker tag cmd:v1 joindevops/nginx:v1
+after running above command it got changed now.
+deepika@nginx:~/dockerfiles/CMD$ docker images
+                                                                                                                                                                         i Info →   U  In Use
+IMAGE                 ID             DISK USAGE   CONTENT SIZE   EXTRA
+cmd:v1                6a1132253c35        364MB          104MB    U
+from:v1               d51b61b536b0        278MB         70.4MB
+hello-world:latest    d4aaab6242e0       25.9kB         9.52kB
+joindevops/nginx:v1   6a1132253c35        364MB          104MB    U
+nginx:alpine-perl     39c73ba97774        139MB         35.2MB
+nginx:latest          fb01117203ff        228MB         62.6MB
+run:v1                7756e708ac42        364MB          104MB
+
+now we will push the image to docker hub so login to docker from backend
+-> docker login -u deepikp567
+pwd:
+docker push joindevops/nginx:v1
+now its pushed to docker hub u can see in docker hub
+if you want to pull from docker hub u have to give docker pull joindevops/nginx:v1
+
+LABEL
+-----------------------------------------------------------------------------------
+it adds metadata to the image, description, who is the owner, which project. Labels are used to filter the images.
+create a folder name as LABEL in VS code, under LABEL create file Dockerfile. add a content as below
+FROM almalinux:9
+LABEL authoru="deepika" \
+      Company="HCL" \
+      topic="docker file" \
+      duration="2 hours"
+
+go to git bash ==> git add . , git commit -m "docker", git push main origin
+now the changes reflected in git hub and run git pull in putty it updates the changes.
+cd dockerfiles/LABEL
+]docker build -t label:v1 .
+]docker images -f 'label=company=HCL'   -> it searches in 100's of images of HCL and it shows HCL.
+] docker inspect <image id>  => it shows the all details
+
+EXPOSE
+----------------------------------------------------------------------------------------------
+used to let the users to know what are the ports this container opens when it runs.. Expose instruction will not effect functionality it will only gives info.
+create a folder name as EXPOSE in VS code, under EXPOSE create file Dockerfile. add a content as below
+FROM almalinux:9
+RUN dnfinstall nginx -y
+EXPOSE 80
+CMD ["nginx", "-g" "daemon off;"]
+
+go to git bash ==> git add . , git commit -m "docker", git push main origin
+now the changes reflected in git hub and run git pull in putty it updates the changes.
+
+cd dockerfiles/EXPOSE
+docker build -t expose:v1
+docker images
+docker inspect <image-ID of expose> -> it shows the exposed port details.
+
+ENV
+--------------------------------------------------------------------------------------------------
+ENV is useful to set any API URLS or any URLS
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
