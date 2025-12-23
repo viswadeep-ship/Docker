@@ -41,6 +41,18 @@ Docker file is used to build custom image. we can make use of docker instruction
 
 FROM RUN CRM ENTRYPOINT COPY ADD ENV ARG WORKDIR USER
 
+FROM
+------------------------------------------------------------------------
+From should be the 1st instruction in docker file. It represents base OS. There is an exception ARG.
+min OS+application runtime+dependencies+package+code =Image
+RHEL 9 is high memory RHEL is VM OS. so we choose almalinux it is same as RHEL but if we get anu issue we will not get support from anyone
+almalinux is equivalent to RHEL
+How to build docker image?
+ docker build -t imagename:version . => represents current build have dockerfile file  -t for tagging
+docker build -t from:v1
+
+
+
 
 
 
