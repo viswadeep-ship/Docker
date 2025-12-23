@@ -1,4 +1,10 @@
-Docker is a containeration platform that provides easy way to containerize your application which means using docker 
+Docker is a containeration platform that provides easy way to containerize your application which means using docker
+
+
+
+Installed docker and run below command to add user 
+sudo usermod -aG docker $USER
+
 
 whatever we want to run a application all the dependencies, code, package and all supplies in docker image.
 container is the running instance of image.
@@ -13,8 +19,33 @@ Now i want to run container so will create container from image  -> docker creat
 docker ps -> here it is not showing container so -> docker ps -a -> here container is not running -> docker start <container ID>  -> it starts the container.
 docker stop <container ID>, docker rm <container ID>  -> remove container
 docker rm -f <container ID> -> it deletes running container
-docker images -> if you want to delete docker images -> docker rmi <image ID>
+docker images -> if you want to delete docker images -> docker rmi <image ID> -> this will not delete running container so use docker rmi -f <imageID> -> it deletes forcefully
 docker run= docker pull + create + start => docker run nginx -> it is running foreground, it occupies the screen so will run background => docker run -d nginx
+Nginx is running inside the container how can we access in the browser, so we have VM inside VM we hvae container inside container docker engine and host have post and container have port we have to give port no. and connect in browser.
+docker run -d -p <host-port>:<container-port> => docker run -d -p 80:80 nginx, now open in browser with IP, http://IP
+container is like a nano server, if you want to open a terminal -> docker exec -it <container-ID> bash -> opens the terminal
+cd /usr/share/nginx/html/index.html
+vi index.html -> here vi is not working so rm -rf index.html -> echo "<h1>Hi, I am from container </h1>" > index.html
+open in browser -> http://IP, o/p: i am from a container
+docker inspect <container-ID>   -> it gives info about container
+docker logs <container-ID>  -> it shows logs of container
+
+Here Name it is taking container name randomly, see the last column name focused-meither, if you want to change to particular name  => docker run -d -p 80:80 --name docker-practice nginx
+deepika@nginx:~$ docker ps
+CONTAINER ID   IMAGE     COMMAND                  CREATED         STATUS         PORTS                                     NAMES
+f61b82f67ae6   nginx     "/docker-entrypoint.…"   6 minutes ago   Up 6 minutes   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp   focused_meitner
+2bd9e39370bc   nginx     "/docker-entrypoint.…"   7 minutes ago   Up 7 minutes   0.0.0.0:80->80/tcp, [::]:80->80/tcp       busy_lederberg
+
+Docker File:
+Docker file is used to build custom image. we can make use of docker instructions to create a docker images.
+
+FROM RUN CRM ENTRYPOINT COPY ADD ENV ARG WORKDIR USER
+
+
+
+
+
+
 
 
 
